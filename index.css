@@ -79,8 +79,8 @@ body {
 }
 
 @keyframes heroDiagonalIn {
-  from { clip-path: polygon(100% 0, 115% 0, 115% 100%, 78% 100%); }
-  to   { clip-path: polygon(-15% 0, 115% 0, 115% 100%, -52% 100%); }
+  from { clip-path: polygon(100% 0, 100% 0, 100% 100%, 80% 100%); }
+  to   { clip-path: polygon(-10% 0, 100% 0, 100% 100%, -40% 100%); }
 }
 
 .hero-overlay {
@@ -328,14 +328,6 @@ body {
 
 .location-btn:hover { background: rgba(244,113,26,0.2); }
 
-@keyframes locationPulse {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.4; }
-}
-
-.location-btn {
-  animation: locationPulse 2s ease-in-out infinite;
-}
 
 .stop-subtitle {
   font-size: 13px;

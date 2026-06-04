@@ -420,6 +420,13 @@ body {
 .food-price { font-size: 18px; font-weight: 500; color: var(--accent); margin-bottom: 6px; }
 .food-menu { font-size: 16px; color: var(--teal); margin-bottom: 4px; line-height: 1.4; font-weight: 600; }
 
+@media (min-width: 1024px) {
+  .food-name { font-size: 14px; }
+  .food-desc { font-size: 11px; }
+  .food-price { font-size: 13px; }
+  .food-menu { font-size: 11px; }
+}
+
 .tags { display: flex; flex-wrap: wrap; gap: 4px; }
 
 .tag {

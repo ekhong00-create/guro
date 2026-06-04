@@ -284,6 +284,15 @@ body {
 
 .location-btn:hover { background: rgba(244,113,26,0.2); }
 
+@keyframes locationPulse {
+  0%, 100% { opacity: 1;   box-shadow: 0 0 0 0 rgba(244,113,26,0.4); }
+  50%       { opacity: 0.7; box-shadow: 0 0 0 4px rgba(244,113,26,0); }
+}
+
+.location-btn {
+  animation: locationPulse 2s ease-in-out infinite;
+}
+
 .stop-subtitle {
   font-size: 13px;
   color: var(--muted);

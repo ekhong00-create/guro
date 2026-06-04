@@ -267,7 +267,10 @@ function showToast() {
             // 3단계: 이동이 완료될 즈음(450ms 후) 상세 줌인 (레벨 3)
             setTimeout(() => {
               if (kakaoMap) {
-                kakaoMap.setLevel(3, { animate: { duration: 250 } });
+                kakaoMap.setLevel(3, { 
+                  animate: { duration: 250 },
+                  anchor: moveLatLng
+                });
               }
             }, 450);
           }

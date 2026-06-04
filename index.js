@@ -219,11 +219,27 @@ function showToast() {
   if (slides.length < 2) return;
   let current = 0;
 
+  function activate(el) {
+    el.classList.remove('active');
+    void el.offsetWidth;
+    el.classList.add('active');
+  }
+
+  activate(slides[0]);
+
   setInterval(() => {
-    slides[current].classList.remove('active');
-    current = (current + 1) % slides.length;
-    slides[current].classList.add('active');
-  }, 4000);
+    const next = (current + 1) % slides.length;
+
+    slides[next].classList.add('entering');
+
+    setTimeout(() => {
+      slides[current].classList.remove('active');
+      slides[next].classList.remove('entering');
+      activate(slides[next]);
+      current = next;
+    }, 1300);
+
+  }, 5500);
 })();
 
 // ───── SCROLL FADE-IN ─────

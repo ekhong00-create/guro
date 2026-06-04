@@ -54,18 +54,36 @@ body {
   object-fit: cover;
   object-position: center 30%;
   opacity: 0;
-  transition: opacity 1.8s ease-in-out;
+  z-index: 0;
 }
 
 .hero-slide.active {
   opacity: 1;
+  z-index: 1;
+  animation: heroPanLeft 6s ease-out forwards;
+}
+
+.hero-slide.entering {
+  opacity: 1;
+  z-index: 2;
+  animation: heroDiagonalIn 1.3s cubic-bezier(0.77, 0, 0.18, 1) forwards;
+}
+
+@keyframes heroPanLeft {
+  from { transform: scale(1.07) translateX(0); }
+  to   { transform: scale(1.03) translateX(-3%); }
+}
+
+@keyframes heroDiagonalIn {
+  from { clip-path: polygon(100% 0, 115% 0, 115% 100%, 78% 100%); }
+  to   { clip-path: polygon(-15% 0, 115% 0, 115% 100%, -52% 100%); }
 }
 
 .hero-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg, rgba(9,16,28,0.45) 0%, rgba(9,16,28,0.3) 40%, rgba(9,16,28,0.75) 80%, rgba(9,16,28,0.98) 100%);
-  z-index: 1;
+  z-index: 3;
 }
 
 .hero-content { position: relative; z-index: 2; }

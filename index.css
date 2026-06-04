@@ -753,18 +753,18 @@ body {
 /* ───── TIMELINE LAYOUT ───── */
 .tl-layout {
   display: flex;
-  flex-direction: row;
+  flex-direction: column-reverse; /* 모바일에서는 세로 배치로 지도 크기 확보 */
   align-items: stretch;
-  gap: 0;
+  gap: 16px;
 }
 
 .tl-map-img {
-  width: 150px;
+  width: 100%;
+  height: 280px; /* 모바일 지도 높이 */
   border-radius: 10px;
   overflow: hidden;
   border: 1px solid rgba(244,113,26,0.2);
   flex-shrink: 0;
-  margin-left: 10px;
 }
 
 .tl-map-img img {
@@ -798,12 +798,15 @@ body {
 
   /* Timeline 2-column */
   .tl-layout {
+    flex-direction: row;
+    align-items: stretch;
     gap: 0;
   }
 
   .tl-map-img {
-    width: 220px;
-    margin-left: 14px;
+    width: 440px; /* 기존 220px에서 2배 넓힘 */
+    height: 380px; /* 가로세로 비율 균형 조정 */
+    margin-left: 16px;
   }
 
   .tl-list {
@@ -883,8 +886,9 @@ body {
 
   /* Timeline 2-column wider */
   .tl-map-img {
-    width: 260px;
-    margin-left: 16px;
+    width: 520px; /* 기존 260px에서 2배 넓힘 */
+    height: 420px; /* 가로세로 비율 균형 조정 */
+    margin-left: 20px;
   }
 
   /* Hero — 좌우 2단 분리 */

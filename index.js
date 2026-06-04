@@ -1,66 +1,13 @@
-// ==========================================
-// 네이버 지도 초기화
-// ==========================================
-const STOP_COORDS = {
-  start:  { name: '구일역 2번 출구',  lat: 37.4961, lng: 126.8477 },
-  stop01: { name: '서울아트책보고',   lat: 37.4982, lng: 126.8659 },
-  ground: { name: '그라운드 고척',    lat: 37.4966, lng: 126.8487 },
-  dome:   { name: '고척 스카이돔',    lat: 37.4982, lng: 126.8659 },
-};
-
-function initNaverMap() {
-  if (typeof naver === 'undefined' || !naver.maps) return;
-
-  const map = new naver.maps.Map('naver-map', {
-    center: new naver.maps.LatLng(37.4972, 126.8570),
-    zoom: 15,
-    mapTypeControl: false,
-    zoomControl: false,
-    scaleControl: false,
-  });
-
-  const markerIcon = (active) => ({
-    content: `<div style="width:12px;height:12px;background:${active ? '#fff' : '#F4711A'};border-radius:50%;border:2px solid #F4711A;box-shadow:0 0 0 2px rgba(244,113,26,0.3);"></div>`,
-    anchor: new naver.maps.Point(6, 6),
-  });
-
-  const markers = {};
-  Object.entries(STOP_COORDS).forEach(([id, data]) => {
-    markers[id] = new naver.maps.Marker({
-      position: new naver.maps.LatLng(data.lat, data.lng),
-      map: map,
-      title: data.name,
-      icon: markerIcon(false),
-    });
-  });
-
-  function activateStop(stopId) {
-    Object.entries(markers).forEach(([id, marker]) => {
-      marker.setIcon(markerIcon(id === stopId));
-    });
-    const coords = STOP_COORDS[stopId];
-    if (coords) map.panTo(new naver.maps.LatLng(coords.lat, coords.lng));
-  }
-
-  document.querySelectorAll('.tl-item[data-stop]').forEach(item => {
-    item.addEventListener('click', () => {
-      document.querySelectorAll('.tl-item').forEach(el => el.classList.remove('tl-active'));
-      item.classList.add('tl-active');
-      activateStop(item.dataset.stop);
-    });
-  });
-}
-
-window.addEventListener('load', initNaverMap);
+const KAKAO_APP_KEY = 'b4c8a954ffc56cce7b954de4329634ed';
+let kakaoMap = null;
 
 // ==========================================
-// 외부 SDK 설정 (열쇠 등록)
+// 외부 SDK 및 서비스 키 설정 (열쇠 등록)
 // ==========================================
 // 카카오 개발자 센터(developers.kakao.com)에서 발급받은 'JavaScript 키'를 아래에 입력해 주세요.
 // 예: const KAKAO_APP_KEY = '1234567890abcdef...';
-const KAKAO_APP_KEY = 'YOUR_KAKAO_APP_KEY';
 
-// 카카오 SDK 초기화
+// 카카오 SDK 초기화 (공유용)
 if (typeof Kakao !== 'undefined' && KAKAO_APP_KEY && KAKAO_APP_KEY !== 'YOUR_KAKAO_APP_KEY') {
   try {
     if (!Kakao.isInitialized()) {
@@ -71,6 +18,126 @@ if (typeof Kakao !== 'undefined' && KAKAO_APP_KEY && KAKAO_APP_KEY !== 'YOUR_KAK
     console.error("Kakao SDK 초기화 중 에러 발생:", e);
   }
 }
+
+// ==========================================
+// 카카오 지도 API 연동
+// ==========================================
+
+const MAP_COORDS = [
+  { name: '구일역 2번 출구', lat: 37.496756, lng: 126.870793 },
+  { name: 'STOP 01 서울아트책보고', lat: 37.4979, lng: 126.8671 },
+  { name: 'STOP 02 그라운드 고척 (포장)', lat: 37.4994, lng: 126.8672 },
+  { name: 'STOP 03 그라운드 고척 (안주)', lat: 37.4994, lng: 126.8672 },
+  { name: '고척 스카이돔', lat: 37.4982, lng: 126.8671 },
+  { name: 'STOP 04 뒷풀이', lat: 37.4998, lng: 126.8660 }
+];
+
+function showStaticMap() {
+  const mapDiv = document.getElementById('map');
+  const staticMapImg = document.getElementById('static-map');
+  if (mapDiv) mapDiv.style.display = 'none';
+  if (staticMapImg) staticMapImg.style.display = 'block';
+}
+
+function initKakaoMap() {
+  try {
+    if (typeof kakao === 'undefined' || !kakao.maps || !kakao.maps.Map) {
+      showStaticMap();
+      return;
+    }
+
+    const container = document.getElementById('map');
+    const options = {
+      center: new kakao.maps.LatLng(37.4982, 126.8671),
+      level: 4
+    };
+
+    const map = new kakao.maps.Map(container, options);
+    kakaoMap = map; // 전역 레퍼런스 저장
+    const bounds = new kakao.maps.LatLngBounds();
+    const linePath = [];
+
+    MAP_COORDS.forEach((pos, idx) => {
+      // 중복 마커(STOP 02/03) 위치 약간 보정하여 구분
+      let adjustLat = pos.lat;
+      let adjustLng = pos.lng;
+      if (pos.name.includes("STOP 03")) {
+        adjustLat -= 0.0001;
+        adjustLng += 0.0001;
+      }
+      
+      const latlng = new kakao.maps.LatLng(adjustLat, adjustLng);
+      linePath.push(latlng);
+      bounds.extend(latlng);
+
+      // Marker
+      const marker = new kakao.maps.Marker({
+        position: latlng,
+        map: map,
+        title: pos.name
+      });
+
+      // Custom Label Overlay
+      // 야구장 감성 오렌지 컬러 매칭 스타일링
+      const labelContent = `<div style="background:#F4711A;color:#fff;font-size:10px;font-weight:700;padding:3px 6px;border-radius:4px;border:1px solid rgba(255,255,255,0.7);box-shadow:0 1px 4px rgba(0,0,0,0.4);white-space:nowrap;transform:translateY(-36px);">${pos.name}</div>`;
+      const customOverlay = new kakao.maps.CustomOverlay({
+        position: latlng,
+        content: labelContent,
+        yAnchor: 1
+      });
+      customOverlay.setMap(map);
+    });
+
+    // Polyline
+    const polyline = new kakao.maps.Polyline({
+      path: linePath,
+      strokeWeight: 4,
+      strokeColor: '#F4711A',
+      strokeOpacity: 0.8,
+      strokeStyle: 'solid'
+    });
+
+    polyline.setMap(map);
+    map.setBounds(bounds);
+  } catch (e) {
+    console.error("카카오 지도 초기화 중 에러가 발생하여 약도로 대체합니다:", e);
+    showStaticMap();
+  }
+}
+
+function loadKakaoMapScript() {
+  if (!KAKAO_APP_KEY || KAKAO_APP_KEY === 'YOUR_KAKAO_APP_KEY') {
+    showStaticMap();
+    return;
+  }
+
+  try {
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_APP_KEY}&autoload=false`;
+    script.async = true;
+    script.onload = () => {
+      try {
+        kakao.maps.load(() => {
+          initKakaoMap();
+        });
+      } catch (err) {
+        console.error("kakao.maps.load 콜백 실행 중 에러:", err);
+        showStaticMap();
+      }
+    };
+    script.onerror = () => {
+      console.warn("카카오 지도 스크립트 로드 실패, 약도로 대체합니다.");
+      showStaticMap();
+    };
+    document.head.appendChild(script);
+  } catch (e) {
+    console.error("loadKakaoMapScript 실행 중 에러:", e);
+    showStaticMap();
+  }
+}
+
+window.addEventListener('load', loadKakaoMapScript);
 
 // 카카오톡 공유 기능
 function shareKakao() {
@@ -164,4 +231,35 @@ function showToast() {
   }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+})();
+
+// ───── 타임라인 아이템 클릭 시 지도 연동 ─────
+(function() {
+  const tlItems = document.querySelectorAll('.tl-item');
+  tlItems.forEach((item, index) => {
+    item.addEventListener('click', () => {
+      // 1. 기존 활성 클래스 제거 및 클릭한 아이템 활성화
+      tlItems.forEach(el => el.classList.remove('tl-active'));
+      item.classList.add('tl-active');
+
+      // 2. 카카오 지도 연동 및 부드러운 중심 이동 (panTo)
+      if (kakaoMap && MAP_COORDS[index]) {
+        const pos = MAP_COORDS[index];
+        let adjustLat = pos.lat;
+        let adjustLng = pos.lng;
+        
+        // STOP 03 위치 미세 조정 매칭 (마커 겹침 방지 보정값 반영)
+        if (pos.name.includes("STOP 03")) {
+          adjustLat -= 0.0001;
+          adjustLng += 0.0001;
+        }
+
+        const moveLatLng = new kakao.maps.LatLng(adjustLat, adjustLng);
+        
+        // 상세 위치를 보여주기 위해 줌 레벨을 3으로 조정 후 이동
+        kakaoMap.setLevel(3);
+        kakaoMap.panTo(moveLatLng);
+      }
+    });
+  });
 })();

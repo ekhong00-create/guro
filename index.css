@@ -170,12 +170,12 @@ body {
 .scroll-cue {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
   gap: 10px;
   color: var(--muted2);
   font-size: 16px;
-  margin-left: auto;
-  text-align: right;
+  text-align: center;
+  width: 100%;
 }
 
 .scroll-arrows {
@@ -183,7 +183,19 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 0;
-  margin-right: 48px;
+}
+
+@media (min-width: 640px) {
+  .scroll-cue {
+    align-items: flex-end;
+    width: auto;
+    margin-left: auto;
+    text-align: right;
+  }
+
+  .scroll-arrows {
+    margin-right: 48px;
+  }
 }
 
 .scroll-arrow {

@@ -195,7 +195,7 @@ body {
 }
 
 .scroll-arrow {
-  font-size: 18px;
+  font-size: 36px;
   animation: bounceDown 1.6s ease-in-out infinite;
 }
 

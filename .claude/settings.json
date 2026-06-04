@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell($env:PATH = [System.Environment]::GetEnvironmentVariable\\(\"PATH\",\"Machine\"\\) + \";\" + [System.Environment]::GetEnvironmentVariable\\(\"PATH\",\"User\"\\); cd \"c:\\\\구로\"; git remote add origin https://github.com/ekhong00-create/guro.git; git add .; git commit -m \"고척돔 먹킷리스트 랜딩페이지 초기 배포\")"
+    ]
+  }
+}

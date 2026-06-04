@@ -375,7 +375,7 @@ body {
 /* ───── CARDS ───── */
 .cards-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 10px;
 }
 
@@ -922,9 +922,9 @@ body {
   .section-title  { font-size: 28px; }
   .stop-title     { font-size: 28px; }
 
-  /* Cards — 4열 */
+  /* Cards — 2열 */
   .cards-grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
 
@@ -1002,7 +1002,7 @@ body {
   .stop-title     { font-size: 32px; }
   .stop-num-bg    { font-size: 100px; }
 
-  /* Cards — 4열 유지, 여백 증가 */
+  /* Cards — 4열 */
   .cards-grid {
     grid-template-columns: repeat(4, 1fr);
     gap: 14px;

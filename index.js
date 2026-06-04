@@ -256,9 +256,22 @@ function showToast() {
 
         const moveLatLng = new kakao.maps.LatLng(adjustLat, adjustLng);
         
-        // 상세 위치를 보여주기 위해 줌 레벨을 3으로 조정 후 이동
-        kakaoMap.setLevel(3);
-        kakaoMap.panTo(moveLatLng);
+        // 1단계: 먼저 지도를 줌아웃하여 전체 경로맥락을 보여줌 (레벨 5)
+        kakaoMap.setLevel(5, { animate: { duration: 250 } });
+
+        // 2단계: 150ms 후에 부드럽게 목표 위치로 이동 (panTo)
+        setTimeout(() => {
+          if (kakaoMap) {
+            kakaoMap.panTo(moveLatLng);
+            
+            // 3단계: 이동이 완료될 즈음(450ms 후) 상세 줌인 (레벨 3)
+            setTimeout(() => {
+              if (kakaoMap) {
+                kakaoMap.setLevel(3, { animate: { duration: 250 } });
+              }
+            }, 450);
+          }
+        }, 150);
       }
     });
   });

@@ -426,6 +426,7 @@ body {
   .food-price { font-size: 13px; }
   .food-menu  { font-size: 11px; }
   .wide-card-name { font-size: 20px; }
+  .stop01-cards .wide-card-name { font-size: 22px; }
 }
 
 .tags { display: flex; flex-wrap: wrap; gap: 4px; }

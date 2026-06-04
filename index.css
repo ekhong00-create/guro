@@ -415,10 +415,10 @@ body {
 }
 
 .food-info { padding: 10px 12px 14px; }
-.food-name { font-size: 14px; font-weight: 500; margin-bottom: 4px; line-height: 1.3; }
-.food-desc { font-size: 11px; color: var(--muted); margin-bottom: 8px; line-height: 1.5; }
-.food-price { font-size: 13px; font-weight: 500; color: var(--accent); margin-bottom: 6px; }
-.food-menu { font-size: 11px; color: var(--teal); margin-bottom: 4px; line-height: 1.4; font-weight: 600; }
+.food-name { font-size: 19px; font-weight: 500; margin-bottom: 4px; line-height: 1.3; }
+.food-desc { font-size: 16px; color: var(--muted); margin-bottom: 8px; line-height: 1.5; }
+.food-price { font-size: 18px; font-weight: 500; color: var(--accent); margin-bottom: 6px; }
+.food-menu { font-size: 16px; color: var(--teal); margin-bottom: 4px; line-height: 1.4; font-weight: 600; }
 
 .tags { display: flex; flex-wrap: wrap; gap: 4px; }
 

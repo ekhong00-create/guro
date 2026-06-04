@@ -70,8 +70,8 @@ body {
 }
 
 @keyframes heroPanLeft {
-  from { transform: scale(1.07) translateX(0); }
-  to   { transform: scale(1.03) translateX(-3%); }
+  from { transform: translateX(0); }
+  to   { transform: translateX(-3%); }
 }
 
 @keyframes heroDiagonalIn {

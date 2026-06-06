@@ -146,8 +146,8 @@ function shareKakao() {
       Kakao.Share.sendDefault({
         objectType: 'feed',
         content: {
-          title: '고척돔 먹킷리스트 🍖⚾',
-          description: '줄 없이, 맛있게, 경기 1시간 전 완벽 코스',
+          title: '고척돔 최단 동선 맛집 가이드 🍖⚾',
+          description: '10년차 키움 팬이 알려주는 완벽 가이드',
           imageUrl: window.location.origin + '/images/extracted_image_2.jpg',
           link: {
             mobileWebUrl: window.location.href,
@@ -171,8 +171,8 @@ function shareKakao() {
   // 카카오 SDK 미설정 시 폴백: 브라우저 기본 공유 기능 또는 링크 복사
   if (navigator.share) {
     navigator.share({
-      title: '고척돔 먹킷리스트',
-      text: '줄 없이, 맛있게, 경기 1시간 전 완벽 코스! 고척돔 직관 전 꼭 보세요.',
+      title: '고척돔 최단 동선 맛집 가이드',
+      text: '10년차 키움 팬이 알려주는 완벽 가이드! 고척돔 직관 전 꼭 보세요.',
       url: window.location.href
     }).catch(err => console.log("Share cancelled or failed: ", err));
   } else {
@@ -198,8 +198,8 @@ function copyLink() {
 function shareMore() {
   if (navigator.share) {
     navigator.share({
-      title: '고척돔 먹킷리스트',
-      text: '줄 없이, 맛있게, 경기 1시간 전 완벽 코스!',
+      title: '고척돔 최단 동선 맛집 가이드',
+      text: '10년차 키움 팬이 알려주는 완벽 가이드!',
       url: window.location.href
     }).catch(err => console.log("Share failed: ", err));
   } else {

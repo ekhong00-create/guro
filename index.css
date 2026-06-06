@@ -100,9 +100,9 @@ body {
   gap: 6px;
   background: rgba(244,113,26,0.12);
   border: 1px solid rgba(244,113,26,0.35);
-  color: var(--accent);
-  font-size: 12px;
-  font-weight: 500;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
   padding: 5px 14px;
   border-radius: 20px;
   margin-bottom: 20px;

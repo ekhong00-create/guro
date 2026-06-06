@@ -27,8 +27,8 @@ const MAP_COORDS = [
   { name: '구일역 2번 출구', lat: 37.49567, lng: 126.86789 },
   { name: 'STEP 01 서울아트책보고', lat: 37.49897, lng: 126.86721 },
   { name: 'STEP 02 그라운드 고척 먹자골목', lat: 37.50003, lng: 126.86714 },
-  { name: 'STEP 03 고척돔', lat: 37.4982, lng: 126.8671 },
-  { name: 'STEP 04 그라운드 고척 - 뒷풀이', lat: 37.5005101, lng: 126.8665257 }
+  { name: '고척돔', lat: 37.4982, lng: 126.8671 },
+  { name: 'STEP 03 그라운드 고척 - 뒷풀이', lat: 37.5005101, lng: 126.8665257 }
 ];
 
 function showStaticMap() {

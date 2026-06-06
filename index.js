@@ -25,7 +25,7 @@ if (typeof Kakao !== 'undefined' && KAKAO_APP_KEY && KAKAO_APP_KEY !== 'YOUR_KAK
 
 const MAP_COORDS = [
   { name: '구일역 2번 출구', lat: 37.49567, lng: 126.86789 },
-  { name: 'STOP 01 서울아트책보고', lat: 37.4979, lng: 126.8671 },
+  { name: 'STOP 01 서울아트책보고', lat: 37.49937, lng: 126.86721 },
   { name: 'STOP 02 그라운드 고척 (포장)', lat: 37.4994, lng: 126.8672 },
   { name: 'STOP 03 그라운드 고척 (안주)', lat: 37.4994, lng: 126.8672 },
   { name: '고척 스카이돔', lat: 37.4982, lng: 126.8671 },

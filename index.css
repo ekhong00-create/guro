@@ -511,7 +511,7 @@ body {
 .forno-item {
   display: flex;
   gap: 7px;
-  font-size: 12px;
+  font-size: 14px;
   color: var(--muted);
   margin-bottom: 9px;
   line-height: 1.5;
@@ -1044,7 +1044,7 @@ body {
     padding: 22px 20px;
   }
 
-  .forno-item { font-size: 13px; }
+  .forno-item { font-size: 15px; }
 
   /* Share CTA */
   .share-section {

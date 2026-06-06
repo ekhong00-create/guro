@@ -28,7 +28,7 @@ const MAP_COORDS = [
   { name: 'STOP 01 서울아트책보고', lat: 37.49897, lng: 126.86721 },
   { name: 'STOP 02 그라운드 고척 먹자골목', lat: 37.50003, lng: 126.86714 },
   { name: '고척 스카이돔', lat: 37.4982, lng: 126.8671 },
-  { name: 'STOP 03 뒷풀이', lat: 37.4998, lng: 126.8660 }
+  { name: 'STOP 03 그라운드 고척 - 뒷풀이', lat: 37.5005101, lng: 126.8665257 }
 ];
 
 function showStaticMap() {

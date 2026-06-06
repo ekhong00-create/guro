@@ -239,6 +239,14 @@ body {
   margin-bottom: 28px;
 }
 
+.tl-helper-text {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: -20px;
+  margin-bottom: 24px;
+  font-weight: 400;
+}
+
 .tl-list { list-style: none; }
 
 .tl-item {

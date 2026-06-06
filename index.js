@@ -97,16 +97,6 @@ function initKakaoMap() {
       customOverlay.setMap(map);
     });
 
-    // Polyline
-    const polyline = new kakao.maps.Polyline({
-      path: linePath,
-      strokeWeight: 4,
-      strokeColor: '#F4711A',
-      strokeOpacity: 0.8,
-      strokeStyle: 'solid'
-    });
-
-    polyline.setMap(map);
     map.setBounds(bounds);
   } catch (e) {
     console.error("카카오 지도 초기화 중 에러가 발생하여 약도로 대체합니다:", e);

@@ -39,6 +39,22 @@ function showStaticMap() {
   if (staticMapImg) staticMapImg.style.display = 'block';
 }
 
+// 서로 근접하거나 중복된 마커(STOP 01, 02, 03)가 겹쳐 보이지 않도록 
+// 위치 좌표를 인위적으로 미세하게 흩뜨려주는(Offset) 함수
+function getAdjustedCoords(pos) {
+  let lat = pos.lat;
+  let lng = pos.lng;
+  
+  if (pos.name.includes("STOP 01")) {
+    lat -= 0.00015; // 남서쪽 오프셋
+    lng -= 0.00015;
+  } else if (pos.name.includes("STOP 03")) {
+    lat += 0.00015; // 북동쪽 오프셋
+    lng += 0.00015;
+  }
+  return { lat, lng };
+}
+
 function initKakaoMap() {
   try {
     if (typeof kakao === 'undefined' || !kakao.maps || !kakao.maps.Map) {
@@ -58,15 +74,8 @@ function initKakaoMap() {
     const linePath = [];
 
     MAP_COORDS.forEach((pos, idx) => {
-      // 중복 마커(STOP 02/03) 위치 약간 보정하여 구분
-      let adjustLat = pos.lat;
-      let adjustLng = pos.lng;
-      if (pos.name.includes("STOP 03")) {
-        adjustLat -= 0.0001;
-        adjustLng += 0.0001;
-      }
-      
-      const latlng = new kakao.maps.LatLng(adjustLat, adjustLng);
+      const adj = getAdjustedCoords(pos);
+      const latlng = new kakao.maps.LatLng(adj.lat, adj.lng);
       linePath.push(latlng);
       bounds.extend(latlng);
 
@@ -274,16 +283,8 @@ function showToast() {
       // 2. 카카오 지도 연동 및 부드러운 중심 이동 (panTo)
       if (kakaoMap && MAP_COORDS[index]) {
         const pos = MAP_COORDS[index];
-        let adjustLat = pos.lat;
-        let adjustLng = pos.lng;
-        
-        // STOP 03 위치 미세 조정 매칭 (마커 겹침 방지 보정값 반영)
-        if (pos.name.includes("STOP 03")) {
-          adjustLat -= 0.0001;
-          adjustLng += 0.0001;
-        }
-
-        const moveLatLng = new kakao.maps.LatLng(adjustLat, adjustLng);
+        const adj = getAdjustedCoords(pos);
+        const moveLatLng = new kakao.maps.LatLng(adj.lat, adj.lng);
         
         // 1단계: 먼저 지도를 줌아웃하여 전체 경로맥락을 보여줌 (레벨 5)
         kakaoMap.setLevel(5, { animate: { duration: 250 } });

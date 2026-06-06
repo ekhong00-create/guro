@@ -27,9 +27,8 @@ const MAP_COORDS = [
   { name: '구일역 2번 출구', lat: 37.49567, lng: 126.86789 },
   { name: 'STOP 01 서울아트책보고', lat: 37.49901, lng: 126.86710 },
   { name: 'STOP 02 그라운드 고척 (포장)', lat: 37.50160, lng: 126.86539 },
-  { name: 'STOP 03 그라운드 고척 (안주)', lat: 37.4994, lng: 126.8672 },
   { name: '고척 스카이돔', lat: 37.4982, lng: 126.8671 },
-  { name: 'STOP 04 뒷풀이', lat: 37.4998, lng: 126.8660 }
+  { name: 'STOP 03 뒷풀이', lat: 37.4998, lng: 126.8660 }
 ];
 
 function showStaticMap() {
@@ -39,18 +38,9 @@ function showStaticMap() {
   if (staticMapImg) staticMapImg.style.display = 'block';
 }
 
-// 서로 근접하거나 중복된 마커(STOP 01, 02, 03)가 겹쳐 보이지 않도록 
-// 위치 좌표를 인위적으로 미세하게 흩뜨려주는(Offset) 함수
 function getAdjustedCoords(pos) {
-  let lat = pos.lat;
-  let lng = pos.lng;
-  
-  // STOP 02와 STOP 03이 동일한 그라운드 고척 좌표이므로 중복을 피하기 위해 오프셋을 줍니다.
-  if (pos.name.includes("STOP 03")) {
-    lat += 0.00015; // 북동쪽 오프셋
-    lng += 0.00015;
-  }
-  return { lat, lng };
+  // 중복 겹침이 모두 해결되었으므로 입력 좌표값을 그대로 사용합니다.
+  return { lat: pos.lat, lng: pos.lng };
 }
 
 function initKakaoMap() {

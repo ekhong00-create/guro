@@ -1132,3 +1132,29 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* ───── MAP CUSTOM LABEL BLINK ANIMATION ───── */
+@keyframes markerBlink {
+  0%, 100% {
+    background-color: #F4711A !important;
+    color: #ffffff !important;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+    transform: translateY(-36px) scale(1);
+  }
+  25%, 75% {
+    background-color: #ffffff !important;
+    color: #F4711A !important;
+    box-shadow: 0 0 12px #F4711A;
+    transform: translateY(-36px) scale(1.15);
+  }
+  50% {
+    background-color: #F4711A !important;
+    color: #ffffff !important;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+    transform: translateY(-36px) scale(1);
+  }
+}
+.map-custom-label.blink-active {
+  animation: markerBlink 1.2s ease-in-out forwards;
+  z-index: 9999 !important;
+}

@@ -75,11 +75,17 @@ function initKakaoMap() {
       });
 
       // Custom Label Overlay
-      // 야구장 감성 오렌지 컬러 매칭 스타일링
-      const labelContent = `<div style="background:#F4711A;color:#fff;font-size:10px;font-weight:700;padding:3px 6px;border-radius:4px;border:1px solid rgba(255,255,255,0.7);box-shadow:0 1px 4px rgba(0,0,0,0.4);white-space:nowrap;transform:translateY(-36px);">${pos.name}</div>`;
+      const labelDiv = document.createElement('div');
+      labelDiv.className = 'map-custom-label';
+      labelDiv.innerText = pos.name;
+      labelDiv.style.cssText = 'background:#F4711A;color:#fff;font-size:10px;font-weight:700;padding:3px 6px;border-radius:4px;border:1px solid rgba(255,255,255,0.7);box-shadow:0 1px 4px rgba(0,0,0,0.4);white-space:nowrap;transform:translateY(-36px);transition:all 0.2s ease;cursor:pointer;';
+      
+      // Store DOM element reference to apply blink effect later
+      pos.labelEl = labelDiv;
+
       const customOverlay = new kakao.maps.CustomOverlay({
         position: latlng,
-        content: labelContent,
+        content: labelDiv,
         yAnchor: 1
       });
       customOverlay.setMap(map);
@@ -279,6 +285,19 @@ function showToast() {
                   animate: { duration: 250 },
                   anchor: moveLatLng
                 });
+
+                // 4단계: 타이틀 라벨 깜빡임 효과 적용
+                if (pos.labelEl) {
+                  // 기존 활성화된 깜빡임 제거
+                  MAP_COORDS.forEach(coord => {
+                    if (coord.labelEl) {
+                      coord.labelEl.classList.remove('blink-active');
+                    }
+                  });
+                  // 강제 리플로우 유발 후 클래스 추가 (애니메이션 재실행)
+                  void pos.labelEl.offsetWidth;
+                  pos.labelEl.classList.add('blink-active');
+                }
               }
             }, 450);
           }

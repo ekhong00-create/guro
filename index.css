@@ -499,6 +499,21 @@ body {
 .wide-card-wrap .wide-card-img {
   width: 166px;
 }
+.wide-card-wrap .wide-card {
+  height: 115px;
+}
+.wide-card-wrap .wide-card-body {
+  padding: 6px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.wide-card-wrap .wide-card-desc {
+  margin-bottom: 2px;
+}
+.wide-card-wrap .tags {
+  margin-top: 2px;
+}
 .wide-card-name { font-size: 16px; font-weight: 500; margin-bottom: 4px; }
 .wide-card-desc { font-size: 12px; color: var(--muted); margin-bottom: 8px; line-height: 1.5; }
 .wide-card-price { font-size: 14px; font-weight: 700; color: var(--accent); }

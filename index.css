@@ -498,6 +498,7 @@ body {
 }
 .wide-card-wrap .wide-card-img {
   width: 166px;
+  height: 110px;
 }
 .wide-card-name { font-size: 16px; font-weight: 500; margin-bottom: 4px; }
 .wide-card-desc { font-size: 12px; color: var(--muted); margin-bottom: 8px; line-height: 1.5; }
